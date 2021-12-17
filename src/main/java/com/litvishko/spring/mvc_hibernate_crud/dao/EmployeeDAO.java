@@ -8,4 +8,6 @@ public interface EmployeeDAO {
 
     List<Employee> showAllEmps();
 
+    void addEmp(Employee employee);
+
 }
