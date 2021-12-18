@@ -10,4 +10,8 @@ public interface EmployeeDAO {
 
     void addEmp(Employee employee);
 
+    Employee showEmp(int id);
+
+    void deleteEmp(int id);
+
 }

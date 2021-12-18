@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,6 +41,22 @@ public class MyController {
 
         employeeService.addEmp(employee);
 
+        return "redirect:/";
+    }
+
+    @RequestMapping("/updateInfo")
+    public String updateEmpInfo(@RequestParam("empId") int id, Model model) {
+        Employee employee = new Employee();
+        employee = employeeService.showEmp(id);
+
+        model.addAttribute("employee", employee);
+
+        return "add-emp-view";
+    }
+
+    @RequestMapping("/deleteEmp")
+    public String deleteEmp(@RequestParam("empId") int id) {
+        employeeService.deleteEmp(id);
         return "redirect:/";
     }
 

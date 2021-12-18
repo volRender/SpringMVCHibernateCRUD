@@ -3,6 +3,7 @@ package com.litvishko.spring.mvc_hibernate_crud.dao;
 import com.litvishko.spring.mvc_hibernate_crud.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,24 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     public void addEmp(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
 
-        session.save(employee);
+        session.saveOrUpdate(employee);
+    }
+
+    @Override
+    public Employee showEmp(int id) {
+
+        Session session = sessionFactory.getCurrentSession();
+
+        Employee employee = session.get(Employee.class, id);
+        return employee;
+    }
+
+    @Override
+    public void deleteEmp(int id) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Employee> query = session.createQuery("delete from Employee where id =: employeeId");
+        query.setParameter("employeeId", id);
+        query.executeUpdate();
     }
 }
